@@ -5,12 +5,15 @@ import 'package:lightbot_flutter/models/orientacao.dart';
 class Tabuleiro {
   final int linhas;
   final int colunas;
-  List<List<CasaDoTabuleiro>> casas;
+  final List<List<CasaDoTabuleiro>> casas;
   late CasaDoTabuleiro? posicaoRobo;
   late CasaDoTabuleiro posicaoVitoria;
+  late Orientacao orientacaoRobo; // Orientação do robô agora no Tabuleiro
 
-  Tabuleiro(this.linhas, this.colunas, this.casas, this.posicaoVitoria) {
+  Tabuleiro(this.linhas, this.colunas, this.casas, this.posicaoRobo,
+      this.posicaoVitoria) {
     _validarCasas(casas);
+    orientacaoRobo = Orientacao.direita;
   }
 
   void _validarCasas(List<List<CasaDoTabuleiro>> casas) {
@@ -24,14 +27,13 @@ class Tabuleiro {
     }
   }
 
-  void colocarRobo(int linha, int coluna, Orientacao orientacaoInicial) {
+  void colocarRobo(int linha, int coluna) {
     if (isDentroDosLimites(linha, coluna)) {
       casas[linha][coluna].roboPresente = true;
       if (posicaoRobo != null) {
         posicaoRobo!.roboPresente = false;
       }
       posicaoRobo = casas[linha][coluna];
-      posicaoRobo!.orientacao = orientacaoInicial;
     }
   }
 
@@ -44,11 +46,10 @@ class Tabuleiro {
 
     switch (comando) {
       case Direcao.virarEsquerda:
-        novaOrientacao =
-            _novaOrientacaoVirandoEsquerda(posicaoRobo!.orientacao);
+        novaOrientacao = _novaOrientacaoVirandoEsquerda(orientacaoRobo);
         break;
       case Direcao.virarDireita:
-        novaOrientacao = _novaOrientacaoVirandoDireita(posicaoRobo!.orientacao);
+        novaOrientacao = _novaOrientacaoVirandoDireita(orientacaoRobo);
         break;
       default:
         throw Exception('Comando inválido: $comando');
@@ -59,8 +60,8 @@ class Tabuleiro {
 
     if (isDentroDosLimites(novaLinha, novaColuna) &&
         !casas[novaLinha][novaColuna].objetoPresente) {
-      colocarRobo(novaLinha, novaColuna, novaOrientacao);
-      posicaoRobo!.orientacao = novaOrientacao;
+      colocarRobo(novaLinha, novaColuna);
+      orientacaoRobo = novaOrientacao;
     }
   }
 
