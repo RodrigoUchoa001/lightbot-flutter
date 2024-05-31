@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lightbot_flutter/models/direcao.dart';
 import 'package:lightbot_flutter/models/tabuleiro.dart';
+import 'package:lightbot_flutter/niveis/niveis.dart';
 
 class GameProvider extends ChangeNotifier {
-  Tabuleiro tabuleiro;
+  late Tabuleiro tabuleiro;
   List<Direcao> comandos = [];
+  int nivelAtual = 0;
 
-  GameProvider(this.tabuleiro);
+  GameProvider() {
+    tabuleiro = niveis[nivelAtual];
+  }
 
   void adicionarComando(Direcao comando) {
     comandos.add(comando);
@@ -28,14 +32,14 @@ class GameProvider extends ChangeNotifier {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
+                    proximoNivel();
                   },
-                  child: const Text('OK'),
+                  child: const Text('Próximo Nível'),
                 ),
               ],
             );
           },
         );
-
         print("vitoria!");
         await Future.delayed(const Duration(
             milliseconds: 500)); // Espera para exibir o último movimento
@@ -67,5 +71,13 @@ class GameProvider extends ChangeNotifier {
     }
     comandos.clear();
     notifyListeners();
+  }
+
+  void proximoNivel() {
+    if (nivelAtual < niveis.length - 1) {
+      nivelAtual++;
+      tabuleiro = niveis[nivelAtual];
+      notifyListeners();
+    }
   }
 }

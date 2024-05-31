@@ -7,6 +7,7 @@ class Tabuleiro {
   final int colunas;
   final List<List<CasaDoTabuleiro>> casas;
   late CasaDoTabuleiro? posicaoRobo;
+  late CasaDoTabuleiro? posicaoRoboInicial;
   late CasaDoTabuleiro posicaoVitoria;
   late Orientacao orientacaoRobo; // Orientação do robô agora no Tabuleiro
 
@@ -14,6 +15,7 @@ class Tabuleiro {
       this.posicaoVitoria) {
     _validarCasas(casas);
     orientacaoRobo = Orientacao.direita;
+    posicaoRoboInicial = posicaoRobo;
   }
 
   void _validarCasas(List<List<CasaDoTabuleiro>> casas) {
@@ -64,7 +66,8 @@ class Tabuleiro {
   }
 
   bool verificarVitoria() {
-    if (posicaoRobo == posicaoVitoria) {
+    if (posicaoRobo!.linha == posicaoVitoria.linha &&
+        posicaoRobo!.coluna == posicaoVitoria.coluna) {
       return true;
     }
     return false;
@@ -116,5 +119,9 @@ class Tabuleiro {
       default:
         return 0;
     }
+  }
+
+  void reiniciarTabuleiro() {
+    posicaoRobo = posicaoRoboInicial;
   }
 }
