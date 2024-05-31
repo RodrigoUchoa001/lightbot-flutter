@@ -102,7 +102,7 @@ List<Tabuleiro> niveis = [
         CasaDoTabuleiro(4, 4, objetoPresente: true)
       ],
     ],
-    CasaDoTabuleiro(2, 2),
+    CasaDoTabuleiro(0, 0),
     CasaDoTabuleiro(4, 2),
   ),
 ];
