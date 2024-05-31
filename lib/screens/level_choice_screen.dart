@@ -12,39 +12,36 @@ class LevelChoiceScreen extends StatelessWidget {
     final provider = Provider.of<GameProvider>(context, listen: false);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Escolha um nível:',
+        ),
+      ),
       body: SafeArea(
           minimum: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const Text(
-                'Escolha um nível:',
-                style: TextStyle(fontSize: 32),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: niveis.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 48,
-                      child: FilledButton.tonal(
-                        onPressed: () {
-                          provider.alterarNivel(index);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const GameScreen(),
-                            ),
-                          );
-                        },
-                        child: Text('Nível ${index + 1}',
-                            style: const TextStyle(fontSize: 24)),
-                      ),
-                    ),
-                  );
-                },
-              )
-            ],
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: niveis.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 48,
+                  child: FilledButton.tonal(
+                    onPressed: () {
+                      provider.alterarNivel(index);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const GameScreen(),
+                        ),
+                      );
+                    },
+                    child: Text('Nível ${index + 1}',
+                        style: const TextStyle(fontSize: 24)),
+                  ),
+                ),
+              );
+            },
           )),
     );
   }
