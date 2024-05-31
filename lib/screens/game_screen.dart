@@ -19,7 +19,7 @@ class GameScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lightbot Flutter'),
+        title: Text('Lightbot nível ${provider.nivelAtual + 1}'),
       ),
       body: Column(
         children: [
