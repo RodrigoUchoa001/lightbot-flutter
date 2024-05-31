@@ -24,7 +24,7 @@ List<Tabuleiro> niveis = [
       ],
     ],
     CasaDoTabuleiro(0, 0),
-    CasaDoTabuleiro(2, 2),
+    CasaDoTabuleiro(2, 1),
   ),
 
   // Nível 2
@@ -58,7 +58,7 @@ List<Tabuleiro> niveis = [
       ],
     ],
     CasaDoTabuleiro(0, 0),
-    CasaDoTabuleiro(3, 3),
+    CasaDoTabuleiro(3, 2),
   ),
 
   // Nível 3
