@@ -87,4 +87,13 @@ class GameProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void alterarNivel(int nivel) {
+    if (nivel < niveis.length) {
+      nivelAtual = nivel;
+      tabuleiro = niveis[nivelAtual];
+    } else {
+      throw ("fase invalida");
+    }
+  }
 }
