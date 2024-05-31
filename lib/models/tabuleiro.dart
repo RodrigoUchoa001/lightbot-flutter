@@ -42,26 +42,24 @@ class Tabuleiro {
   }
 
   void moverRobo(Direcao comando) {
-    Orientacao novaOrientacao;
-
     switch (comando) {
       case Direcao.virarEsquerda:
-        novaOrientacao = _novaOrientacaoVirandoEsquerda(orientacaoRobo);
+        orientacaoRobo = _novaOrientacaoVirandoEsquerda(orientacaoRobo);
         break;
       case Direcao.virarDireita:
-        novaOrientacao = _novaOrientacaoVirandoDireita(orientacaoRobo);
+        orientacaoRobo = _novaOrientacaoVirandoDireita(orientacaoRobo);
+        break;
+      case Direcao.avancar:
+        int novaLinha = posicaoRobo!.linha + _movimentoLinha(orientacaoRobo);
+        int novaColuna = posicaoRobo!.coluna + _movimentoColuna(orientacaoRobo);
+
+        if (isDentroDosLimites(novaLinha, novaColuna) &&
+            !casas[novaLinha][novaColuna].objetoPresente) {
+          colocarRobo(novaLinha, novaColuna);
+        }
         break;
       default:
         throw Exception('Comando inválido: $comando');
-    }
-
-    int novaLinha = posicaoRobo!.linha + _movimentoLinha(novaOrientacao);
-    int novaColuna = posicaoRobo!.coluna + _movimentoColuna(novaOrientacao);
-
-    if (isDentroDosLimites(novaLinha, novaColuna) &&
-        !casas[novaLinha][novaColuna].objetoPresente) {
-      colocarRobo(novaLinha, novaColuna);
-      orientacaoRobo = novaOrientacao;
     }
   }
 
