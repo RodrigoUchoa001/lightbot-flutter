@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lightbot_flutter/providers/game_provider.dart';
-import 'package:lightbot_flutter/screens/game_screen.dart';
+import 'package:lightbot_flutter/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const GameScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
