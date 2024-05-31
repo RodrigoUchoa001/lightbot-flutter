@@ -13,9 +13,18 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
-                  'LightBot',
-                  style: TextStyle(fontSize: 48),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'LightBot',
+                      style: TextStyle(fontSize: 48),
+                    ),
+                    Text(
+                      'Flutter',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 48,
