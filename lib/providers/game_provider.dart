@@ -18,11 +18,8 @@ class GameProvider extends ChangeNotifier {
       tabuleiro.moverRobo(comando);
       notifyListeners();
       if (tabuleiro.verificarVitoria()) {
-        await Future.delayed(const Duration(
-            milliseconds: 500)); // Espera para exibir o último movimento
         showDialog(
-          context:
-              context, // Atualize aqui para utilizar corretamente o contexto
+          context: context,
           builder: (context) {
             return AlertDialog(
               title: const Text('Parabéns!'),
@@ -38,9 +35,35 @@ class GameProvider extends ChangeNotifier {
             );
           },
         );
+
+        print("vitoria!");
+        await Future.delayed(const Duration(
+            milliseconds: 500)); // Espera para exibir o último movimento
         break;
       }
       await Future.delayed(const Duration(milliseconds: 500));
+    }
+
+    if (!tabuleiro.verificarVitoria()) {
+      tabuleiro.reiniciarTabuleiro();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Perdeu!'),
+            content:
+                const Text('Sequência de comandos incorreta! Tente novamente!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
     comandos.clear();
     notifyListeners();
