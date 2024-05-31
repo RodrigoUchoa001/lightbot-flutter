@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lightbot_flutter/models/direcao.dart';
 import 'package:lightbot_flutter/models/tabuleiro.dart';
 import 'package:lightbot_flutter/niveis/niveis.dart';
+import 'package:lightbot_flutter/screens/home_screen.dart';
 
 class GameProvider extends ChangeNotifier {
   late Tabuleiro tabuleiro;
@@ -33,8 +34,13 @@ class GameProvider extends ChangeNotifier {
                     ? TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ),
+                          );
                         },
-                        child: const Text('Fim'),
+                        child: const Text('Voltar ao início'),
                       )
                     : TextButton(
                         onPressed: () {
