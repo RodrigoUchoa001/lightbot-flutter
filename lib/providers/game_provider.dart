@@ -6,9 +6,9 @@ import 'package:lightbot_flutter/niveis/niveis.dart';
 class GameProvider extends ChangeNotifier {
   late Tabuleiro tabuleiro;
   List<Direcao> comandos = [];
-  int nivelAtual = 0;
+  late int nivelAtual;
 
-  GameProvider() {
+  GameProvider({this.nivelAtual = 0}) {
     tabuleiro = niveis[nivelAtual];
   }
 
@@ -29,13 +29,20 @@ class GameProvider extends ChangeNotifier {
               title: const Text('Parabéns!'),
               content: const Text('Você alcançou a posição de vitória!'),
               actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    proximoNivel();
-                  },
-                  child: const Text('Próximo Nível'),
-                ),
+                nivelAtual >= niveis.length - 1
+                    ? TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Fim'),
+                      )
+                    : TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          proximoNivel();
+                        },
+                        child: const Text('Próximo Nível'),
+                      ),
               ],
             );
           },
