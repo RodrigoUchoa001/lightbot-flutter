@@ -57,7 +57,7 @@ class GameScreen extends StatelessWidget {
                               angle: _getRotationAngle(
                                   provider.tabuleiro.orientacaoRobo),
                               child: const Icon(Icons.arrow_upward,
-                                  color: Colors.blue),
+                                  color: Colors.blue, size: 48),
                             )
                           : null,
                     );
@@ -80,9 +80,18 @@ class GameScreen extends StatelessWidget {
                     Wrap(
                       spacing: 10.0,
                       children: provider.comandos.map((comando) {
-                        return Chip(
-                          label: Text(comando.toString().split('.').last),
-                        );
+                        if (comando == Direcao.virarEsquerda) {
+                          return const Chip(
+                              label: Icon(Icons.rotate_left_rounded));
+                        }
+                        if (comando == Direcao.virarDireita) {
+                          return const Chip(
+                              label: Icon(Icons.rotate_right_rounded));
+                        }
+                        return const Chip(label: Icon(Icons.straight_rounded));
+                        // return Chip(
+                        //   label: Text(comando.toString().split('.').last),
+                        // );
                       }).toList(),
                     ),
                   ],
@@ -95,33 +104,45 @@ class GameScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Provider.of<GameProvider>(context, listen: false)
-                        .adicionarComando(Direcao.virarEsquerda);
-                  },
-                  child: const Text('Virar Esquerda'),
+                SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Provider.of<GameProvider>(context, listen: false)
+                          .adicionarComando(Direcao.virarEsquerda);
+                    },
+                    child: const Icon(Icons.rotate_left_rounded, size: 32),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Provider.of<GameProvider>(context, listen: false)
-                        .adicionarComando(Direcao.avancar);
-                  },
-                  child: const Text('Avançar'),
+                SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Provider.of<GameProvider>(context, listen: false)
+                          .adicionarComando(Direcao.avancar);
+                    },
+                    child: const Icon(Icons.straight_rounded, size: 32),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Provider.of<GameProvider>(context, listen: false)
-                        .adicionarComando(Direcao.virarDireita);
-                  },
-                  child: const Text('Virar Direita'),
+                SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Provider.of<GameProvider>(context, listen: false)
+                          .adicionarComando(Direcao.virarDireita);
+                    },
+                    child: const Icon(Icons.rotate_right_rounded, size: 32),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Provider.of<GameProvider>(context, listen: false)
-                        .executarComandos(context);
-                  },
-                  child: const Text('Executar'),
+                SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Provider.of<GameProvider>(context, listen: false)
+                          .executarComandos(context);
+                    },
+                    child: const Text('Executar'),
+                  ),
                 ),
               ],
             ),
