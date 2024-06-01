@@ -10,8 +10,11 @@ class GameProvider extends ChangeNotifier {
   List<Direcao> comandos = [];
   late int nivelAtual;
 
+  late int sequenciaAtual;
+
   GameProvider({this.nivelAtual = 0}) {
     tabuleiro = niveis[nivelAtual];
+    sequenciaAtual = 0;
   }
 
   void adicionarComando(Direcao comando) {
@@ -53,7 +56,8 @@ class GameProvider extends ChangeNotifier {
                                   builder: (context) => GameScreen2(
                                     tabuleiro:
                                         niveis2[nivelAtual - niveis.length],
-                                    sequenciaMovimentos: sequenciaMecanica2[0],
+                                    sequenciaMovimentos:
+                                        sequenciaMecanica2[sequenciaAtual],
                                   ),
                                 ),
                               );
@@ -127,5 +131,9 @@ class GameProvider extends ChangeNotifier {
     } else {
       throw ("fase invalida");
     }
+  }
+
+  void proxSequencia() {
+    sequenciaAtual++;
   }
 }
