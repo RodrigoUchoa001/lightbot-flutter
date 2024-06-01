@@ -1,4 +1,5 @@
 import 'package:lightbot_flutter/models/casa_do_tabuleiro.dart';
+import 'package:lightbot_flutter/models/direcao.dart';
 import 'package:lightbot_flutter/models/tabuleiro.dart';
 
 List<Tabuleiro> niveis = [
@@ -105,4 +106,101 @@ List<Tabuleiro> niveis = [
     CasaDoTabuleiro(0, 0),
     CasaDoTabuleiro(4, 2),
   ),
+];
+
+List<Tabuleiro> niveis2 = [
+  // Níveis da nova mecânica
+  // Nível 4 (nova mecânica)
+  Tabuleiro(
+    3, // Linhas
+    3, // Colunas
+    [
+      [CasaDoTabuleiro(0, 0), CasaDoTabuleiro(0, 1), CasaDoTabuleiro(0, 2)],
+      [CasaDoTabuleiro(1, 0), CasaDoTabuleiro(1, 1), CasaDoTabuleiro(1, 2)],
+      [CasaDoTabuleiro(2, 0), CasaDoTabuleiro(2, 1), CasaDoTabuleiro(2, 2)],
+    ],
+    CasaDoTabuleiro(0, 0),
+    CasaDoTabuleiro(2, 2),
+  ),
+  // Nível 5 (nova mecânica)
+  Tabuleiro(
+    4, // Linhas
+    4, // Colunas
+    [
+      [
+        CasaDoTabuleiro(0, 0),
+        CasaDoTabuleiro(0, 1),
+        CasaDoTabuleiro(0, 2),
+        CasaDoTabuleiro(0, 3)
+      ],
+      [
+        CasaDoTabuleiro(1, 0),
+        CasaDoTabuleiro(1, 1),
+        CasaDoTabuleiro(1, 2),
+        CasaDoTabuleiro(1, 3)
+      ],
+      [
+        CasaDoTabuleiro(2, 0),
+        CasaDoTabuleiro(2, 1),
+        CasaDoTabuleiro(2, 2),
+        CasaDoTabuleiro(2, 3)
+      ],
+      [
+        CasaDoTabuleiro(3, 0),
+        CasaDoTabuleiro(3, 1),
+        CasaDoTabuleiro(3, 2),
+        CasaDoTabuleiro(3, 3)
+      ],
+    ],
+    CasaDoTabuleiro(0, 0),
+    CasaDoTabuleiro(3, 3),
+  ),
+  // Nível 6 (nova mecânica)
+  Tabuleiro(
+    5, // Linhas
+    5, // Colunas
+    [
+      [
+        CasaDoTabuleiro(0, 0),
+        CasaDoTabuleiro(0, 1),
+        CasaDoTabuleiro(0, 2),
+        CasaDoTabuleiro(0, 3),
+        CasaDoTabuleiro(0, 4)
+      ],
+      [
+        CasaDoTabuleiro(1, 0),
+        CasaDoTabuleiro(1, 1),
+        CasaDoTabuleiro(1, 2),
+        CasaDoTabuleiro(1, 3),
+        CasaDoTabuleiro(1, 4)
+      ],
+      [
+        CasaDoTabuleiro(2, 0),
+        CasaDoTabuleiro(2, 1),
+        CasaDoTabuleiro(2, 2),
+        CasaDoTabuleiro(2, 3),
+        CasaDoTabuleiro(2, 4)
+      ],
+      [
+        CasaDoTabuleiro(3, 0),
+        CasaDoTabuleiro(3, 1),
+        CasaDoTabuleiro(3, 2),
+        CasaDoTabuleiro(3, 3),
+        CasaDoTabuleiro(3, 4)
+      ],
+      [
+        CasaDoTabuleiro(4, 0),
+        CasaDoTabuleiro(4, 1),
+        CasaDoTabuleiro(4, 2),
+        CasaDoTabuleiro(4, 3),
+        CasaDoTabuleiro(4, 4)
+      ],
+    ],
+    CasaDoTabuleiro(0, 0),
+    CasaDoTabuleiro(4, 4),
+  ),
+];
+
+List<List<Direcao>> sequenciaMecanica2 = [
+  [Direcao.avancar, Direcao.virarDireita, Direcao.avancar],
 ];
