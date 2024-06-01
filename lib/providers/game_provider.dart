@@ -117,7 +117,7 @@ class GameProvider extends ChangeNotifier {
   }
 
   void alterarNivel(int nivel) {
-    if (nivelAtual < (niveis.length + niveis2.length) - 1) {
+    if (nivelAtual <= (niveis.length + niveis2.length) - 1) {
       nivelAtual = nivel;
       if (nivelAtual > niveis.length - 1) {
         tabuleiro = niveis2[nivelAtual - niveis.length];

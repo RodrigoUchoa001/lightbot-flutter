@@ -61,7 +61,7 @@ class LevelChoiceScreen extends StatelessWidget {
                       child: FilledButton.tonal(
                         onPressed: () {
                           provider.alterarNivel(index + niveis.length);
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => GameScreen2(
                                 tabuleiro: niveis2[
