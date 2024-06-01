@@ -21,7 +21,7 @@ class GameScreen2 extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lightbot Flutter - Nova Mecânica'),
+        title: Text('Lightbot nível ${provider.nivelAtual + 1}'),
       ),
       body: Column(
         children: [

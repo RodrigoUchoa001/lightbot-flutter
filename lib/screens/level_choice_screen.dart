@@ -71,7 +71,7 @@ class LevelChoiceScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Text('Nível ${index + 1}',
+                        child: Text('Nível ${niveis.length + index + 1}',
                             style: const TextStyle(fontSize: 24)),
                       ),
                     ),
