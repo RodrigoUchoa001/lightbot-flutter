@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lightbot_flutter/models/direcao.dart';
 import 'package:lightbot_flutter/models/tabuleiro.dart';
 import 'package:lightbot_flutter/niveis/niveis.dart';
+import 'package:lightbot_flutter/screens/game_screen2.dart';
 import 'package:lightbot_flutter/screens/home_screen.dart';
 
 class GameProvider extends ChangeNotifier {
@@ -31,17 +32,34 @@ class GameProvider extends ChangeNotifier {
               content: const Text('Você alcançou a posição de vitória!'),
               actions: [
                 nivelAtual >= niveis.length - 1
-                    ? TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                          );
-                        },
-                        child: const Text('Voltar ao início'),
-                      )
+                    ? nivelAtual >= (niveis2.length + niveis.length) - 1
+                        ? TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text('Voltar ao início'),
+                          )
+                        : TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              proximoNivel();
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => GameScreen2(
+                                    tabuleiro:
+                                        niveis2[nivelAtual - niveis.length],
+                                    sequenciaMovimentos: sequenciaMecanica2[0],
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const Text('Próximo Nível'),
+                          )
                     : TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -87,17 +105,25 @@ class GameProvider extends ChangeNotifier {
   }
 
   void proximoNivel() {
-    if (nivelAtual < niveis.length - 1) {
+    if (nivelAtual < (niveis.length + niveis2.length) - 1) {
       nivelAtual++;
-      tabuleiro = niveis[nivelAtual];
+      if (nivelAtual > niveis.length - 1) {
+        tabuleiro = niveis2[nivelAtual - niveis.length];
+      } else {
+        tabuleiro = niveis[nivelAtual];
+      }
       notifyListeners();
     }
   }
 
   void alterarNivel(int nivel) {
-    if (nivel < niveis.length) {
+    if (nivelAtual < (niveis.length + niveis2.length) - 1) {
       nivelAtual = nivel;
-      tabuleiro = niveis[nivelAtual];
+      if (nivelAtual > niveis.length - 1) {
+        tabuleiro = niveis2[nivelAtual - niveis.length];
+      } else {
+        tabuleiro = niveis[nivelAtual];
+      }
     } else {
       throw ("fase invalida");
     }
