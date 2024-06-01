@@ -66,7 +66,7 @@ class LevelChoiceScreen extends StatelessWidget {
                               builder: (context) => GameScreen2(
                                 tabuleiro: niveis2[
                                     provider.nivelAtual - niveis.length],
-                                sequenciaMovimentos: sequenciaMecanica2[0],
+                                sequenciaMovimentos: sequenciaMecanica2[index],
                               ),
                             ),
                           );

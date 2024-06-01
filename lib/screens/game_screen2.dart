@@ -189,12 +189,15 @@ class GameScreen2 extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop();
                           provider.proximoNivel();
+
+                          provider.proxSequencia();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => GameScreen2(
                                 tabuleiro: niveis2[
                                     provider.nivelAtual - niveis.length],
-                                sequenciaMovimentos: sequenciaMecanica2[0],
+                                sequenciaMovimentos:
+                                    sequenciaMecanica2[provider.sequenciaAtual],
                               ),
                             ),
                           );
