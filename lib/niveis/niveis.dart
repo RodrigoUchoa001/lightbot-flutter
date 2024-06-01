@@ -203,4 +203,23 @@ List<Tabuleiro> niveis2 = [
 
 List<List<Direcao>> sequenciaMecanica2 = [
   [Direcao.avancar, Direcao.virarDireita, Direcao.avancar],
+  [
+    Direcao.avancar,
+    Direcao.avancar,
+    Direcao.avancar,
+    Direcao.virarDireita,
+    Direcao.avancar,
+    Direcao.virarDireita,
+    Direcao.avancar,
+  ],
+  [
+    Direcao.avancar,
+    Direcao.virarDireita,
+    Direcao.avancar,
+    Direcao.avancar,
+    Direcao.virarDireita,
+    Direcao.virarDireita,
+    Direcao.virarEsquerda,
+    Direcao.avancar
+  ],
 ];
