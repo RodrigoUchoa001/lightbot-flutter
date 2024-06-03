@@ -217,18 +217,18 @@ class _GameScreen2State extends State<GameScreen2>
     );
   }
 
-  double _getRotationAngle(Orientacao orientacao) {
+  String _getRobotImage(Orientacao orientacao) {
     switch (orientacao) {
       case Orientacao.cima:
-        return 0.0;
+        return 'assets/images/robot__up.png';
       case Orientacao.direita:
-        return 0.5 * 3.14;
+        return 'assets/images/robot__right.png';
       case Orientacao.baixo:
-        return 3.14;
+        return 'assets/images/robot__down.png';
       case Orientacao.esquerda:
-        return 1.5 * 3.14;
+        return 'assets/images/robot__left.png';
       default:
-        return 0.0;
+        return 'assets/images/robot__up.png';
     }
   }
 
@@ -283,10 +283,12 @@ class _GameScreen2State extends State<GameScreen2>
                       builder: (context, child) {
                         if (linha == _posicaoRobo.linha &&
                             coluna == _posicaoRobo.coluna) {
-                          return Transform.rotate(
-                            angle: _getRotationAngle(_orientacaoRobo),
-                            child: const Icon(Icons.arrow_upward,
-                                color: Colors.blue, size: 48),
+                          return Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Image.asset(
+                              _getRobotImage(_orientacaoRobo),
+                              fit: BoxFit.contain,
+                            ),
                           );
                         } else {
                           return Container();
