@@ -53,11 +53,13 @@ class GameScreen extends StatelessWidget {
                       ),
                       child: linha == provider.tabuleiro.posicaoRobo!.linha &&
                               coluna == provider.tabuleiro.posicaoRobo!.coluna
-                          ? Transform.rotate(
-                              angle: _getRotationAngle(
-                                  provider.tabuleiro.orientacaoRobo),
-                              child: const Icon(Icons.arrow_upward,
-                                  color: Colors.blue, size: 48),
+                          ? Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Image.asset(
+                                _getRobotImage(
+                                    provider.tabuleiro.orientacaoRobo),
+                                fit: BoxFit.contain,
+                              ),
                             )
                           : null,
                     );
@@ -152,18 +154,18 @@ class GameScreen extends StatelessWidget {
     );
   }
 
-  double _getRotationAngle(Orientacao orientacao) {
+  String _getRobotImage(Orientacao orientacao) {
     switch (orientacao) {
       case Orientacao.cima:
-        return 0.0;
+        return 'assets/images/robot__up.png';
       case Orientacao.direita:
-        return 0.5 * 3.14;
+        return 'assets/images/robot__right.png';
       case Orientacao.baixo:
-        return 3.14;
+        return 'assets/images/robot__down.png';
       case Orientacao.esquerda:
-        return 1.5 * 3.14;
+        return 'assets/images/robot__left.png';
       default:
-        return 0.0;
+        return 'assets/images/robot__up.png';
     }
   }
 }
