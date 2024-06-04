@@ -20,65 +20,68 @@ class LevelChoiceScreen extends StatelessWidget {
       ),
       body: SafeArea(
           minimum: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("Mecânica 1"),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: niveis.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 48,
-                      child: FilledButton.tonal(
-                        onPressed: () {
-                          provider.alterarNivel(index);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const GameScreen(),
-                            ),
-                          );
-                        },
-                        child: Text('Nível ${index + 1}',
-                            style: const TextStyle(fontSize: 24)),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 24),
-              const Text("Mecânica 2"),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: niveis2.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 48,
-                      child: FilledButton.tonal(
-                        onPressed: () {
-                          provider.alterarNivel(index + niveis.length);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => GameScreen2(
-                                tabuleiro: niveis2[
-                                    provider.nivelAtual - niveis.length],
-                                sequenciaMovimentos: sequenciaMecanica2[index],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Mecânica 1"),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: niveis.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 48,
+                        child: FilledButton.tonal(
+                          onPressed: () {
+                            provider.alterarNivel(index);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const GameScreen(),
                               ),
-                            ),
-                          );
-                        },
-                        child: Text('Nível ${niveis.length + index + 1}',
-                            style: const TextStyle(fontSize: 24)),
+                            );
+                          },
+                          child: Text('Nível ${index + 1}',
+                              style: const TextStyle(fontSize: 24)),
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+                const Text("Mecânica 2"),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: niveis2.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 48,
+                        child: FilledButton.tonal(
+                          onPressed: () {
+                            provider.alterarNivel(index + niveis.length);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => GameScreen2(
+                                  tabuleiro: niveis2[
+                                      provider.nivelAtual - niveis.length],
+                                  sequenciaMovimentos:
+                                      sequenciaMecanica2[index],
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text('Nível ${niveis.length + index + 1}',
+                              style: const TextStyle(fontSize: 24)),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           )),
     );
   }
