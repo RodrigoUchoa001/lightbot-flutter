@@ -129,7 +129,7 @@ class GameScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: SingleChildScrollView(
                         child: HighlightView(
-                          _gerarCodigo(provider.comandos),
+                          "void main(){\n${_gerarCodigo(provider.comandos)}\n}",
                           language: 'dart', // ou a linguagem que você desejar
                           theme: githubTheme, // ou outro tema que você preferir
                           padding: const EdgeInsets.all(12),
@@ -222,11 +222,11 @@ class GameScreen extends StatelessWidget {
   String _gerarCodigo(List<Direcao> comandos) {
     return comandos.map((comando) {
       if (comando == Direcao.virarEsquerda) {
-        return 'robo.virarEsquerda();';
+        return '    robo.virarEsquerda();';
       } else if (comando == Direcao.virarDireita) {
-        return 'robo.virarDireita();';
+        return '    robo.virarDireita();';
       } else if (comando == Direcao.avancar) {
-        return 'robo.irEmFrente();';
+        return '    robo.irEmFrente();';
       }
       return '';
     }).join('\n');
