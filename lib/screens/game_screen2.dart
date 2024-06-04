@@ -7,6 +7,8 @@ import 'package:lightbot_flutter/niveis/niveis.dart';
 import 'package:lightbot_flutter/providers/game_provider.dart';
 import 'package:lightbot_flutter/screens/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/github.dart'; // Escolha um tema de sua preferência
 
 class GameScreen2 extends StatefulWidget {
   final Tabuleiro tabuleiro;
@@ -27,6 +29,16 @@ class _GameScreen2State extends State<GameScreen2>
   late CasaDoTabuleiro _posicaoRobo;
   late Orientacao _orientacaoRobo;
   CasaDoTabuleiro? _casaSelecionada;
+  String _codigoGerado = '''
+void main(){
+  robo.fazerSequenciaDeMovimentos();
+  if (robo.casaAtual == (x, y)) {
+      print("resposta correta!");
+  } else {
+      print("resposta errada!");
+  }
+}
+''';
 
   @override
   void initState() {
@@ -82,6 +94,7 @@ class _GameScreen2State extends State<GameScreen2>
     bool resultado = robo.linha == linha && robo.coluna == coluna;
     _mostrarDialogoResultado(
         context, resultado, Provider.of<GameProvider>(context, listen: false));
+    // _gerarCodigo(linha, coluna);
   }
 
   bool _verificarEscolha(int linha, int coluna) {
@@ -207,6 +220,14 @@ class _GameScreen2State extends State<GameScreen2>
                         _posicaoRobo = _posicaoInicialRobo;
                         _orientacaoRobo = widget.tabuleiro.orientacaoRobo;
                         _casaSelecionada = null;
+                        _codigoGerado = '''
+                          robo.fazerSequenciaDeMovimentos();
+                          if (robo.casaAtual == (x, y)) {
+                              print("resposta correta!");
+                          } else {
+                              print("resposta errada!");
+                          }
+                        '''; // Limpa o código gerado
                       });
                     },
                     child: const Text('OK'),
@@ -240,87 +261,148 @@ class _GameScreen2State extends State<GameScreen2>
       appBar: AppBar(
         title: Text('Lightbot nível ${provider.nivelAtual + 1}'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: widget.tabuleiro.colunas,
-              ),
-              itemCount: widget.tabuleiro.linhas * widget.tabuleiro.colunas,
-              itemBuilder: (context, index) {
-                int linha = index ~/ widget.tabuleiro.colunas;
-                int coluna = index % widget.tabuleiro.colunas;
-                CasaDoTabuleiro casa = widget.tabuleiro.casas[linha][coluna];
+      body: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  double maxHeight = constraints.maxHeight;
+                  double maxWidth = constraints.maxWidth;
+                  int linhas = widget.tabuleiro.linhas;
+                  int colunas = widget.tabuleiro.colunas;
+                  double cellSize = (maxHeight < maxWidth / colunas * linhas)
+                      ? maxHeight / linhas
+                      : maxWidth / colunas;
+                  return SizedBox(
+                    height: cellSize * linhas,
+                    width: cellSize * colunas,
+                    child: GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: colunas,
+                      ),
+                      itemCount: linhas * colunas,
+                      itemBuilder: (context, index) {
+                        int linha = index ~/ colunas;
+                        int coluna = index % colunas;
+                        CasaDoTabuleiro casa =
+                            widget.tabuleiro.casas[linha][coluna];
 
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _casaSelecionada = CasaDoTabuleiro(linha, coluna);
-                    });
-                    _iniciarAnimacao(linha, coluna);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2.0),
-                      color: _casaSelecionada != null &&
-                              _casaSelecionada!.linha == linha &&
-                              _casaSelecionada!.coluna == coluna
-                          ? Colors.amber
-                          : casa.objetoPresente
-                              ? Colors.grey
-                              : linha ==
-                                          provider
-                                              .tabuleiro.posicaoVitoria.linha &&
-                                      coluna ==
-                                          provider
-                                              .tabuleiro.posicaoVitoria.coluna
-                                  ? Colors.green
-                                  : Colors.white,
-                    ),
-                    child: AnimatedBuilder(
-                      animation: _animation,
-                      builder: (context, child) {
-                        if (linha == _posicaoRobo.linha &&
-                            coluna == _posicaoRobo.coluna) {
-                          return Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Image.asset(
-                              _getRobotImage(_orientacaoRobo),
-                              fit: BoxFit.contain,
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _casaSelecionada = CasaDoTabuleiro(linha, coluna);
+                            });
+                            _iniciarAnimacao(linha, coluna);
+                            _codigoGerado = '''
+void main(){
+  robo.fazerSequenciaDeMovimentos();
+  if (robo.casaAtual == ($linha,$coluna)) {
+      print("resposta correta!");
+  } else {
+      print("resposta errada!");
+  }
+}
+                              ''';
+                            setState(() {});
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 2.0),
+                              color: _casaSelecionada != null &&
+                                      _casaSelecionada!.linha == linha &&
+                                      _casaSelecionada!.coluna == coluna
+                                  ? Colors.amber
+                                  : casa.objetoPresente
+                                      ? Colors.grey
+                                      : linha ==
+                                                  widget.tabuleiro
+                                                      .posicaoVitoria.linha &&
+                                              coluna ==
+                                                  widget.tabuleiro
+                                                      .posicaoVitoria.coluna
+                                          ? Colors.green
+                                          : Colors.white,
                             ),
-                          );
-                        } else {
-                          return Container();
-                        }
+                            child: AnimatedBuilder(
+                              animation: _animation,
+                              builder: (context, child) {
+                                if (linha == _posicaoRobo.linha &&
+                                    coluna == _posicaoRobo.coluna) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Image.asset(
+                                      _getRobotImage(_orientacaoRobo),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                          ),
+                        );
                       },
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const Text(
-                  'Em qual casa o Robô vai parar se ele seguir a seguinte sequência de Movimentos?',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Em qual casa o Robô vai parar se ele seguir a seguinte sequência de Movimentos?',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 12),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: widget.sequenciaMovimentos.map((comando) {
+                          return Chip(
+                            label: Text(comando.toString().split('.').last),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Código gerado:',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        color: Colors.grey[200],
+                        width: double.infinity,
+                        child: SingleChildScrollView(
+                          child: HighlightView(
+                            _codigoGerado!,
+                            language: 'dart',
+                            theme: githubTheme,
+                            padding: const EdgeInsets.all(8),
+                            textStyle: const TextStyle(fontFamily: 'monospace'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 12),
-                Wrap(
-                  spacing: 10.0,
-                  children: widget.sequenciaMovimentos.map((comando) {
-                    return Chip(
-                      label: Text(comando.toString().split('.').last),
-                    );
-                  }).toList(),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
