@@ -8,10 +8,12 @@ Neste jogo, você controla um robô dentro de um tabuleiro para fazer ele chegar
 
 ### Tela Inicial:
 Tela que aparece ao entrar no jogo.
+
 ![Alt text](doc_imgs/tela_inicial.png)
 
 ### Tela de Escolha de níveis
 Tela de escolha de níveis, onde é possível escolher entre as três fases da primeira mecânica, ou as três fases da segunda mecânica.
+
 ![Alt text](doc_imgs/escolha_de_nivel.png)
 
 ### Tela de Fase da Mecânica 1
@@ -26,6 +28,7 @@ Se o jogador acertar a sequência, aparecerá um dialog com uma mensagem de "vit
 Tela de uma fase da mecânica 2. As fases da segunda mecânica são o oposto dos da primeira. Aqui, o jogador recebe uma sequência de movimentos e deve apertar, no tabuleiro, na casa que ele acredita que o robô irá chegar ao finalizar a sequência.
 
 Após apertar em uma casa, o jogo irá exibir uma animação demonstrando o robô rodando a sequência. Caso o jogador acerte a casa, aparecerá um dialog com uma mensagem de "sucesso", junto com um botão que leva a primeira fase. Caso erre, irá aparecer uma mensagem de erro com um botão para repetir a fase.
+
 ![Alt text](doc_imgs/mecanica_2.png)
 
 ## Download
