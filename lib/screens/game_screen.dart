@@ -129,7 +129,7 @@ class GameScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: SingleChildScrollView(
                         child: HighlightView(
-                          "void main(){\n${_gerarCodigo(provider.comandos)}\n}",
+                          "void main(){\n    Robo robo = Robo();\n${_gerarCodigo(provider.comandos)}\n}",
                           language: 'dart', // ou a linguagem que você desejar
                           theme: githubTheme, // ou outro tema que você preferir
                           padding: const EdgeInsets.all(12),
