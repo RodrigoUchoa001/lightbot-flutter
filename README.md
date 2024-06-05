@@ -4,6 +4,8 @@ Um versão do jogo Light Bot, desenvolvido usando flutter para ser jogado em dis
 
 Neste jogo, você controla um robô dentro de um tabuleiro para fazer ele chegar a uma casa específica. Para controlar o robô, existem três botões: Virar a Esquerda, Ir em frente e Virar a Direita. O objetivo é escolher uma sequência de movimentos que levam a casa verde.
 
+Ao jogar esse jogo, o usuário começará a ter noções iniciais muito importantes a respeito da programação, seja qual for a linguagem que este esteja estudando. Um exemplo de aprendizado é o conceito de algoritmo, onde através deste jogo, o jogador começará a entender que, na programação, para se atingir um objetivo, deve se seguir um passo a passo bem definido, sem pular passos, nem mudar a ordem dos passos.
+
 ## Screenshots
 
 ### Tela Inicial:
